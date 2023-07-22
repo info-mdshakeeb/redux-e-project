@@ -1,10 +1,13 @@
+import { useDispatch } from 'react-redux';
 /* eslint-disable react/prop-types */
 import { Link } from 'react-router-dom';
+import { addtoCard } from '../Redux/feature/AddtoCard/cardSlice';
+
 
 const ProductCard = ({ product }) => {
+    const dispatch = useDispatch()
     const handleAddProduct = (product) => {
-        console.log(product);
-
+        dispatch(addtoCard(product))
     };
     return (
         <div>

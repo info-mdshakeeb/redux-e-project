@@ -60,8 +60,10 @@ const Products = () => {
                     </div>
                     <div className="col-span-9 grid grid-cols-3 gap-6 pb-20 pt-4">
                         {productsData?.map((product) => (
-                            // eslint-disable-next-line react/jsx-key
-                            <ProductCard product={product} />
+                            <div className="" key={product?._id}>
+
+                                <ProductCard product={product} />
+                            </div>
                         ))}
                     </div>
                 </div>
