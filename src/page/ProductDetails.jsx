@@ -7,9 +7,9 @@ export default function ProductDetails() {
     const { id } = useParams();
 
     //! Temporary code, should be replaced with redux
-    const [data, setData] = useState([]);
+    const [data, setData] = useState([])
     useEffect(() => {
-        fetch('../../public/data.json')
+        fetch('./data.json')
             .then((res) => res.json())
             .then((data) => setData(data));
     }, []);

@@ -1,12 +1,13 @@
+import { useSelector } from "react-redux";
 
 export default function Checkout() {
     // const [scheduled, setScheduled] = useState(false);
 
     //! Dummy Data
-
-    const products = [];
+    const { products, total } = useSelector(state => state.cart)
 
     //! **
+
 
     return (
         <div className="flex justify-center items-center h-[calc(100vh-80px)] gap-10 text-primary">
@@ -38,7 +39,7 @@ export default function Checkout() {
                     <div className="space-y-2">
                         <div className="flex justify-between text-lg">
                             <p>Subtotal</p>
-                            <p>77.90$</p>
+                            <p>{total}$</p>
                         </div>
                         <div className="flex justify-between text-lg">
                             <p>Delivery</p>

@@ -1,14 +1,13 @@
-import { useDispatch } from 'react-redux';
 /* eslint-disable react/prop-types */
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addtoCard } from '../Redux/feature/AddtoCard/cardSlice';
+import { addToCart } from '../../Redux/Feature/cart/cartSlice';
 
 
 const ProductCard = ({ product }) => {
     const dispatch = useDispatch()
-    const handleAddProduct = (product) => {
-        dispatch(addtoCard(product))
-    };
+
+
     return (
         <div>
             <div className="rounded-2xl h-[420px] flex flex-col items-start justify-between p-3 overflow-hidden shadow-md border border-gray-100 hover:shadow-2xl hover:scale-[102%] transition-all gap-2">
@@ -21,7 +20,7 @@ const ProductCard = ({ product }) => {
                     Availability: {product?.status ? 'In stock' : 'Out of stock'}
                 </p>
                 <p className="text-sm">Price: {product?.price}</p>
-                <button className='btn btn-sm btn-warning' onClick={() => handleAddProduct(product)}>
+                <button className='btn btn-sm btn-warning' onClick={() => dispatch(addToCart((product)))}>
                     Add to cart
                 </button>
             </div>

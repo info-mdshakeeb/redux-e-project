@@ -1,13 +1,10 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, deleteItem, removeQuantity } from "../../Redux/Feature/cart/cartSlice";
 
 export default function Cart() {
-    //! Dummy data
-    const { products } = useSelector((state) => state.card)
+    const dispatch = useDispatch()
+    const { products, total } = useSelector(state => state.cart)
 
-
-    const total = 0;
-
-    //! **
 
     return (
 
@@ -36,10 +33,15 @@ export default function Cart() {
                         </div>
                         <div className="border-l pl-5 flex flex-col justify-between">
 
-                            <button className="btn btn-sm">+ </button>
-                            <button className="btn btn-sm">_
-                            </button>
-                            <button className="btn btn-sm">D</button>
+                            <button
+                                onClick={() => dispatch(addToCart(product))}
+                                className="btn btn-sm">+ </button>
+                            <button
+                                onClick={() => dispatch(removeQuantity(product))}
+                                className="btn btn-sm">_ </button>
+                            <button
+                                onClick={() => dispatch(deleteItem(product))}
+                                className="btn btn-sm">D</button>
                         </div>
                     </div>
                 ))}

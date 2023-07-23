@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { price, toggleStatus } from "../../Redux/Feature/Quary/querySlice";
 import ProductCard from "../components/ProductCard";
 import Section from "../components/ui/sectionTemp";
 
 const Products = () => {
-    const [data, setData] = useState([]);
+
+    const [data, setData] = useState([])
 
     useEffect(() => {
         fetch('./data.json')
@@ -11,25 +14,20 @@ const Products = () => {
             .then((data) => setData(data));
     }, []);
 
-    const status = true;
-    const priceRange = 100;
-
-    const handleSlider = (value) => {
-        console.log(value);
-    };
+    const { status, priceRange } = useSelector(state => state.query)
+    const dispatch = useDispatch()
 
     let productsData;
 
     if (status) {
-        productsData = data.filter(
+        productsData = data?.filter(
             (item) => item.status === true && item.price < priceRange
         );
     } else if (priceRange > 0) {
-        productsData = data.filter((item) => item.price < priceRange);
+        productsData = data?.filter((item) => item.price < priceRange);
     } else {
         productsData = data;
     }
-
 
     return (
         <div>
@@ -42,16 +40,26 @@ const Products = () => {
                             <div className="flex items-center space-x-2 mt-3">
                                 {/* <Switch id="in-stock" /> */}
                                 <label htmlFor="in-stock">In stock</label>
+                                <div className="form-control">
+                                    <label className="label cursor-pointer ">
+
+                                        <input
+                                            checked={status ? true : false}
+                                            onClick={() => dispatch(toggleStatus())}
+                                            type="checkbox" className="toggle " />
+                                    </label>
+                                </div>
                             </div>
                         </div>
                         <div className="space-y-3 ">
                             <h1 className="text-2xl uppercase">Price Range</h1>
                             <div className="max-w-xl">
                                 <input
+                                    onChange={(e) => dispatch(price(Number(e.target.value)))}
 
                                     type="range" min={0} max="150" className="range range-sm"
-                                    // eslint-disable-next-line react/no-unknown-property
-                                    onValueChange={(value) => handleSlider(value)}
+                                // eslint-disable-next-line react/no-unknown-property
+
                                 />
 
                             </div>
