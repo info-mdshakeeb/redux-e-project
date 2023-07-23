@@ -1,18 +1,13 @@
-import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { price, toggleStatus } from "../../Redux/Feature/Quary/querySlice";
+
+import { useGetProductsQuery } from "../../Redux/Feature/product/productApi";
 import ProductCard from "../components/ProductCard";
 import Section from "../components/ui/sectionTemp";
 
 const Products = () => {
 
-    const [data, setData] = useState([])
-
-    useEffect(() => {
-        fetch('./data.json')
-            .then((res) => res.json())
-            .then((data) => setData(data));
-    }, []);
+    const { data } = useGetProductsQuery(undefined)
 
     const { status, priceRange } = useSelector(state => state.query)
     const dispatch = useDispatch()
@@ -20,13 +15,13 @@ const Products = () => {
     let productsData;
 
     if (status) {
-        productsData = data?.filter(
+        productsData = data?.data?.filter(
             (item) => item.status === true && item.price < priceRange
         );
     } else if (priceRange > 0) {
-        productsData = data?.filter((item) => item.price < priceRange);
+        productsData = data?.data?.filter((item) => item.price < priceRange);
     } else {
-        productsData = data;
+        productsData = data?.data;
     }
 
     return (

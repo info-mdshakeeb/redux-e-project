@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+
+import { useSingleProductQuery } from '../../Redux/Feature/product/productApi';
 import ProductReview from '../components/ProductReview';
 import Section from '../components/ui/sectionTemp';
 
@@ -7,14 +8,8 @@ export default function ProductDetails() {
     const { id } = useParams();
 
     //! Temporary code, should be replaced with redux
-    const [data, setData] = useState([])
-    useEffect(() => {
-        fetch('./data.json')
-            .then((res) => res.json())
-            .then((data) => setData(data));
-    }, []);
+    const { data: product } = useSingleProductQuery(id)
 
-    const product = data?.find((item) => item._id === Number(id));
 
     //! Temporary code ends here
 

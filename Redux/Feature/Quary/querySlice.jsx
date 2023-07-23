@@ -12,7 +12,6 @@ const querySlice = createSlice({
             state.status = !state.status
         },
         price: (state, actions) => {
-            console.log();
             state.priceRange = actions.payload
         }
 
